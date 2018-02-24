@@ -10,7 +10,7 @@ import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.corpus.NatureCooccurrenceCorpus;
 import org.cocolian.nlp.pos.chmm.corpus.file.NatureCooccurrenceFileCorpus;
 import org.jgrapht.EdgeFactory;
-import org.jgrapht.alg.BellmanFordShortestPath;
+import org.jgrapht.alg.shortestpath.BellmanFordShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
@@ -61,7 +61,7 @@ public class NatureRecognitor extends AbstractRecognitor {
 			}
 
 		
-		List<NatureTermEdge> edges = (BellmanFordShortestPath.findPathBetween(natureGraph, start, end));
+		List<NatureTermEdge> edges = BellmanFordShortestPath.findPathBetween(natureGraph, start, end).getEdgeList();
 		for (NatureTermEdge edge : edges) {
 			NatureTerm nt = natureGraph.getEdgeTarget(edge);
 			nt.term.setNature(nt.nature);

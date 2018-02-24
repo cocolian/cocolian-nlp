@@ -16,7 +16,7 @@ import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermPath;
 import org.jgrapht.GraphPath;
-import org.jgrapht.alg.KShortestPaths;
+import org.jgrapht.alg.shortestpath.KShortestPaths;
 
 /**
  * @author lixf
@@ -46,8 +46,8 @@ public class AbstractNPathGenerator extends AbstractProcessor implements NPathGe
 	 * @return
 	 */
 	protected List<TermPath> findNPath(TermGraph graph, int count) {
-		KShortestPaths<POSTerm, TermEdge> alg = new KShortestPaths<POSTerm, TermEdge>(graph, graph.getStartVertex(), count);
-		List<GraphPath<POSTerm, TermEdge>> pathes = alg.getPaths(graph.getEndVertex());
+		KShortestPaths<POSTerm, TermEdge> alg = new KShortestPaths<POSTerm, TermEdge>(graph, count);
+		List<GraphPath<POSTerm, TermEdge>> pathes = alg.getPaths(graph.getStartVertex(), graph.getEndVertex());
 		List<TermPath> result = new ArrayList<TermPath>();
 		if(pathes==null) {
 			log.error("Error in finding path for :"+ graph.getSource());

@@ -17,7 +17,7 @@ import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermNatures;
 import org.cocolian.nlp.pos.chmm.TermPath;
-import org.jgrapht.alg.BellmanFordShortestPath;
+import org.jgrapht.alg.shortestpath.BellmanFordShortestPath;
 
 /**
  * Recognitor基类，提供recogintor中将使用的各种公用方法；
@@ -64,7 +64,7 @@ public abstract class AbstractRecognitor extends AbstractProcessor implements Re
 	 * @return
 	 */
 	protected TermPath findShortestPath(TermGraph graph) {
-		List<TermEdge> edges = (BellmanFordShortestPath.findPathBetween(graph, graph.getStartVertex(), graph.getEndVertex()));
+		List<TermEdge> edges = BellmanFordShortestPath.findPathBetween(graph, graph.getStartVertex(), graph.getEndVertex()).getEdgeList();
 		return graph.createPath(edges);
 	}
 

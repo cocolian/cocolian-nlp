@@ -15,7 +15,6 @@ import org.cocolian.nlp.Term;
 import org.cocolian.nlp.Tokenizer;
 import org.cocolian.nlp.sentence.Detector;
 import org.cocolian.nlp.sentence.Sentence;
-import org.ejml.ops.CommonOps;
 import org.ejml.simple.SimpleMatrix;
 
 /**
@@ -161,8 +160,10 @@ public class TextRankSummarization implements Summarization {
 		SimpleMatrix one = new SimpleMatrix(matrix.numCols(), matrix.numRows());
 		one.set(1);
 		SimpleMatrix sum = matrix.mult(one);
-		CommonOps.elementDiv(matrix.getMatrix(), sum.getMatrix());
-		CommonOps.transpose(matrix.getMatrix());
+		//CommonOps.elementDiv(matrix.getMatrix(), sum.getMatrix());
+		matrix.set(matrix.elementDiv(sum));
+		//CommonOps.transpose(matrix.getMatrix());
+		matrix.set(matrix.transpose());
 	}
 
 	/**
