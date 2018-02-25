@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.cocolian.nlp.Nature;
 import org.cocolian.nlp.corpus.FileCorpus;
@@ -21,18 +23,24 @@ import org.cocolian.nlp.pos.chmm.corpus.PersonTermAttribute;
  * 
  */
 public class PersonNameBoundaryFileCorpus extends FileCorpus {
+	private static final String CORPUS_PATH = "data/pos/person.boundary.data";
+	private static final String CORPUS_ENCODER = "UTF-8";
 	private CharDFACorpus charTree;
 
 	public PersonNameBoundaryFileCorpus(CharDFACorpus charTree) throws IOException {
-		//super(dictionary, "person.boundary.data");
 		this.charTree = charTree;
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(CORPUS_PATH);
+		try {
+			this.load(is);
+		} finally {
+			is.close();
+		}
 	}
 
-	@Override
-	public void load(File boundaryFrequencyFile) throws IOException {
+	private void load(InputStream boundaryFrequencyFile) throws IOException {
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader(boundaryFrequencyFile));
+			br = new BufferedReader(new InputStreamReader(boundaryFrequencyFile, CORPUS_ENCODER));
 			String temp = null;
 			while ((temp = br.readLine()) != null) {
 				String[] strs = temp.split("\t");

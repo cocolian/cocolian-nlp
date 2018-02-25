@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.corpus.CooccurrenceCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.CooccurrenceFileCorpus;
 
 /**
  * @author lixf
@@ -31,9 +29,8 @@ public class CooccurrenceNPathGenerator extends AbstractNPathGenerator{
 	 * @param cooccurrence
 	 */
 	private CooccurrenceCorpus cooccurrence;	
-	public CooccurrenceNPathGenerator(CorpusRepository dictionary) {
-		super(dictionary);
-		this.cooccurrence = this.dictionary.getCorpus(CooccurrenceFileCorpus.class);
+	public CooccurrenceNPathGenerator(CooccurrenceCorpus cooccurrence) {
+		this.cooccurrence = cooccurrence;
 	}
 	
 

@@ -1,14 +1,11 @@
 package org.cocolian.nlp.pos.chmm.recognitor;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.corpus.NatureCooccurrenceCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.NatureCooccurrenceFileCorpus;
 import org.jgrapht.EdgeFactory;
 import org.jgrapht.alg.shortestpath.BellmanFordShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -22,9 +19,8 @@ import org.jgrapht.graph.SimpleDirectedWeightedGraph;
  */
 public class NatureRecognitor extends AbstractRecognitor {
 	private NatureCooccurrenceCorpus cooccurrence;
-	public NatureRecognitor(CorpusRepository dictionary) throws IOException {		
-		super(dictionary);
-		this.cooccurrence = dictionary.getCorpus(NatureCooccurrenceFileCorpus.class);
+	public NatureRecognitor(NatureCooccurrenceCorpus cooccurrence) {		
+		this.cooccurrence = cooccurrence;
 		
 	}
 

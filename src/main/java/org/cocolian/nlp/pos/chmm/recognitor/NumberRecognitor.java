@@ -11,13 +11,11 @@ import java.util.List;
 
 import org.cocolian.nlp.Nature;
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermNatures;
 import org.cocolian.nlp.pos.chmm.corpus.CharsetCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.CharsetFileCorpus;
 
 /**
  * @author lixf
@@ -26,9 +24,7 @@ import org.cocolian.nlp.pos.chmm.corpus.file.CharsetFileCorpus;
 public class NumberRecognitor extends AbstractRecognitor {
 	private char[] characters;
 
-	public NumberRecognitor(CorpusRepository dictionary) throws IOException {
-		super(dictionary);		
-		CharsetCorpus chars = dictionary.getCorpus(CharsetFileCorpus.class);
+	public NumberRecognitor(CharsetCorpus chars) throws IOException {
 		this.characters = chars.getChars("number");
 		Arrays.sort(this.characters);
 	}

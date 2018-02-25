@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.cocolian.nlp.corpus.FileCorpus;
 import org.cocolian.nlp.pos.chmm.corpus.CompanyNameLengthCorpus;
@@ -17,10 +19,17 @@ import org.cocolian.nlp.pos.chmm.corpus.CompanyNameLengthCorpus;
  * 
  */
 public class CompanyNameLengthFileCorpus extends FileCorpus implements CompanyNameLengthCorpus {
+	private static final String CORPUS_PATH = "data/pos/company.length.data";
+	private static final String CORPUS_ENCODER = "UTF-8";	
 	private double freqOfLength[]; // 长度为1~50的机构名字出现的概率
 
-	public CompanyNameLengthFileCorpus() throws IOException {
-		//super(folder, "company.length.data");
+	public CompanyNameLengthFileCorpus() throws IOException {		
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(CORPUS_PATH);
+		try {
+			this.load(is);
+		} finally {
+			is.close();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -36,7 +45,7 @@ public class CompanyNameLengthFileCorpus extends FileCorpus implements CompanyNa
 	 * 
 	 * @throws IOException
 	 */
-	public void load(File frequencyPath) throws IOException {
+	public void load(InputStream frequencyPath) throws IOException {
 		BufferedReader reader = null;
 		String temp = null;
 		this.freqOfLength = new double[51];
@@ -44,7 +53,7 @@ public class CompanyNameLengthFileCorpus extends FileCorpus implements CompanyNa
 		int index = 0;
 		float fac = 0;
 		try {
-			reader = new BufferedReader(new FileReader(frequencyPath));
+			reader = new BufferedReader(new InputStreamReader(frequencyPath,CORPUS_ENCODER));
 			while ((temp = reader.readLine()) != null) {
 				if (isBlank(temp = temp.trim())) {
 					continue;

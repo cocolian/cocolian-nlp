@@ -14,12 +14,12 @@ public interface NatureFreqCorpus {
 	 * @param nature
 	 * @return
 	 */
-	public abstract int getFrequency(Nature nature);
+	public int getFrequency(Nature nature);
 
 	/**
 	 * 获取总大小
 	 * @return
 	 */
-	public abstract int getSize();
+	public int getSize();
 
 }

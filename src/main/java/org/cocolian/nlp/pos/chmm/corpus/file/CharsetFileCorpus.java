@@ -6,6 +6,7 @@ package org.cocolian.nlp.pos.chmm.corpus.file;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -18,20 +19,26 @@ import org.cocolian.nlp.pos.chmm.corpus.CharsetCorpus;
  * @author lixf
  *
  */
-public class CharsetFileCorpus extends FileCorpus implements CharsetCorpus{
+public class CharsetFileCorpus implements CharsetCorpus{
+	private static final String CORPUS_PATH = "data/pos/chars.data";
+	private static final String CORPUS_ENCODER = "UTF-8";	
 	private Properties chars;
 	
-	public CharsetFileCorpus() {
-		//super(folder, "chars.data");		
+	public CharsetFileCorpus() throws IOException {
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(CORPUS_PATH);
+		try {
+			this.load(is);
+		} finally {
+			is.close();
+		}
 	}
 
-	@Override
-	public void load(File file) throws IOException {
+	private void load(InputStream file) throws IOException {
 		if(chars==null)
 			chars = new Properties();
 		
 		Properties properties = new Properties();
-		properties.load(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+		properties.load(new InputStreamReader(file,CORPUS_ENCODER));
 		this.chars.putAll(properties);
 	}
 	

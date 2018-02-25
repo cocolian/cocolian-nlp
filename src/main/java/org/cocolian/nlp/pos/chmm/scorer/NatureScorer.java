@@ -6,13 +6,11 @@ package org.cocolian.nlp.pos.chmm.scorer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.AbstractProcessor;
 import org.cocolian.nlp.pos.chmm.PathScorer;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermPath;
 import org.cocolian.nlp.pos.chmm.corpus.NatureCooccurrenceCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.NatureCooccurrenceFileCorpus;
 
 /**
  * 根据词性语法对切分结果进行打分。 考虑如下因素： 1. 最佳的切分结果，形成的词应该较少。 2. 最佳切分结果形成的句法是最优的。
@@ -25,9 +23,8 @@ public class NatureScorer extends AbstractProcessor implements PathScorer {
 	private static Log log = LogFactory.getLog(NatureScorer.class);
 
 	private NatureCooccurrenceCorpus natures;
-	public NatureScorer(CorpusRepository dictionary) {
-		super(dictionary);
-		this.natures = dictionary.getCorpus(NatureCooccurrenceFileCorpus.class);
+	public NatureScorer(NatureCooccurrenceCorpus natures) {
+		
 	}
 
 	/**

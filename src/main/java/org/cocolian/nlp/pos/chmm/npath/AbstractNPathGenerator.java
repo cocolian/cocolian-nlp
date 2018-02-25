@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.AbstractProcessor;
 import org.cocolian.nlp.pos.chmm.NPathGenerator;
 import org.cocolian.nlp.pos.chmm.POSTerm;
@@ -26,8 +25,7 @@ public class AbstractNPathGenerator extends AbstractProcessor implements NPathGe
 	private static final Log log = LogFactory.getLog(AbstractNPathGenerator.class);
 	private int pathCount;
 
-	public AbstractNPathGenerator(CorpusRepository dictionary) {
-		super(dictionary);
+	public AbstractNPathGenerator() {
 		this.pathCount = 8;
 	}
 

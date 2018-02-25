@@ -4,18 +4,16 @@
 package org.cocolian.nlp.pos.chmm;
 
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.CorpusRepository;
 
 /**
  * @author lixf
  * 
  */
 public class AbstractProcessor {
-	protected CorpusRepository dictionary;
+	
 	private static final int BLANK_LENATH = 0;
 
-	public AbstractProcessor(final CorpusRepository dictionary) {
-		this.dictionary = dictionary;
+	public AbstractProcessor() {
 	}
 
 	public TermNatures createTermNatures(final String natureName) {

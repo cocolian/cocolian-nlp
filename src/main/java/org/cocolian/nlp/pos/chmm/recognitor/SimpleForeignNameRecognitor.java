@@ -9,14 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermNatures;
 import org.cocolian.nlp.pos.chmm.corpus.CharsetCorpus;
 import org.cocolian.nlp.pos.chmm.corpus.PersonTermAttribute;
-import org.cocolian.nlp.pos.chmm.corpus.file.CharsetFileCorpus;
 
 /**
  * @author lixf
@@ -25,9 +23,8 @@ import org.cocolian.nlp.pos.chmm.corpus.file.CharsetFileCorpus;
 public class SimpleForeignNameRecognitor extends NameRecognitor {
 	private char[] candidates;
 	
-	public SimpleForeignNameRecognitor(CorpusRepository dictionary) throws IOException{
-		super(dictionary);
-		CharsetCorpus chars = dictionary.getCorpus(CharsetFileCorpus.class);
+	public SimpleForeignNameRecognitor(CharsetCorpus chars) throws IOException{
+	
 		this.candidates = chars.getChars("person");
 	}
 	

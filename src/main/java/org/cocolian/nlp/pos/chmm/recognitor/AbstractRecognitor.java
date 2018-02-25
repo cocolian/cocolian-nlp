@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.AbstractProcessor;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.Recognitor;
@@ -28,8 +27,8 @@ import org.jgrapht.alg.shortestpath.BellmanFordShortestPath;
 public abstract class AbstractRecognitor extends AbstractProcessor implements Recognitor {
 	protected Log log = LogFactory.getLog(this.getClass());
 	
-	public AbstractRecognitor(CorpusRepository dictionary) {
-		super(dictionary);
+	public AbstractRecognitor() {
+		super();
 	}
 	
 

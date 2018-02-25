@@ -3,11 +3,13 @@
  */
 package net.phoenix.nlp.pos;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.cocolian.nlp.Tokenizer;
 import org.cocolian.nlp.pos.chmm.HMMTokenizer;
 import org.cocolian.nlp.sentence.Detector;
@@ -23,16 +25,18 @@ import org.junit.Test;
  *
  */
 public class TestSummarization {
+	private static Log log = LogFactory.getLog(TestSummarization.class);
 	@Test
 	public void testText() throws IOException {
-		File folder = new File("D:\\github\\jigsaw-nlp\\data\\pos");
-		Tokenizer tokenizer = new HMMTokenizer(folder);
+		Tokenizer tokenizer = HMMTokenizer.newBuilder().build();
 		Detector detector = new SimpleDetector();
-		Reader paragraph = new FileReader("D:\\github\\jigsaw-nlp\\java\\algorithm\\test\\news2.txt");
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream("news2.txt");
+		Reader paragraph = new InputStreamReader(is,"UTF-8");
 		Summarization summarization = new TextRankSummarization(tokenizer, detector);
 		for(Sentence sentence : summarization.summarize(paragraph, 4)){
 			double score = ((SentenceWrapper)sentence).getScore();
-			System.out.println("["+ score+"]"+ sentence);
+			log.info("["+ score+"]"+ sentence);
 		}
+		is.close();
 	}
 }

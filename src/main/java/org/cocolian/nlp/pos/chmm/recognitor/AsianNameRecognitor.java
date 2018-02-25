@@ -8,14 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermPath;
 import org.cocolian.nlp.pos.chmm.corpus.CooccurrenceCorpus;
 import org.cocolian.nlp.pos.chmm.corpus.PersonTermAttribute;
-import org.cocolian.nlp.pos.chmm.corpus.file.CooccurrenceFileCorpus;
 
 /**
  * 亚洲（中文）名识别，针对2-4个字的名字识别。
@@ -30,9 +28,8 @@ public class AsianNameRecognitor extends NameRecognitor {
 	private static int NAME_LENGTH_MAX = 4;
 	private CooccurrenceCorpus cooccurrence;
 
-	public AsianNameRecognitor(CorpusRepository dictionary) throws IOException {
-		super(dictionary);
-		this.cooccurrence = dictionary.getCorpus(CooccurrenceFileCorpus.class);
+	public AsianNameRecognitor(CooccurrenceCorpus cooccurrence) throws IOException {
+		this.cooccurrence = cooccurrence;
 		
 	}
 

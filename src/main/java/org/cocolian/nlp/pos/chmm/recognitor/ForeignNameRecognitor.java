@@ -10,15 +10,12 @@ import java.util.List;
 
 import org.cocolian.nlp.Nature;
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermPath;
 import org.cocolian.nlp.pos.chmm.corpus.CharsetCorpus;
 import org.cocolian.nlp.pos.chmm.corpus.CooccurrenceCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.CharsetFileCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.CooccurrenceFileCorpus;
 
 /**
  * @author lixf
@@ -29,12 +26,11 @@ public class ForeignNameRecognitor extends NameRecognitor {
 	private char[] candidates;
 	private CooccurrenceCorpus cooccurrence;
 	
-	public ForeignNameRecognitor(CorpusRepository dictionary) throws IOException {
-		super(dictionary);
-		CharsetCorpus chars = dictionary.getCorpus(CharsetFileCorpus.class);
+	public ForeignNameRecognitor(CharsetCorpus chars, CooccurrenceCorpus cooccurrence) throws IOException {
+	
 		this.candidates = chars.getChars("person");
 		Arrays.sort(this.candidates);
-		this.cooccurrence = dictionary.getCorpus(CooccurrenceFileCorpus.class);
+		this.cooccurrence = cooccurrence;
 	}
 
 

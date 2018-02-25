@@ -6,8 +6,12 @@ package net.phoenix.nlp.pos;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.cocolian.nlp.Tokenizer;
 import org.cocolian.nlp.keyword.KeywordExtractor;
 import org.cocolian.nlp.keyword.TFIDFKeywordExtractor;
@@ -24,17 +28,22 @@ import org.junit.runners.JUnit4;
  */
 @RunWith(JUnit4.class)
 public class TestKeywords  {
+	private static  Log log = LogFactory.getLog(TestKeywords.class);
+	private static final String TEXT_PATH = "news2.txt";
 	@Test
 	public void testText() throws IOException {
-		File folder = new File("D:\\github\\jigsaw-nlp\\data\\pos");
-		Tokenizer tokenizer = new HMMTokenizer(folder);
+		Tokenizer tokenizer = HMMTokenizer.newBuilder().build();
 		Detector detector = new SimpleDetector();
-		Reader paragraph = new FileReader("D:\\github\\jigsaw-nlp\\java\\algorithm\\test\\news2.txt");
-		KeywordExtractor extractor = new TFIDFKeywordExtractor(tokenizer, detector);
-		System.out.println();
-		for(String  keyword: extractor.extract(paragraph, 8)){
-			System.out.print(keyword+" ");
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(TEXT_PATH);
+		try {
+			Reader paragraph = new InputStreamReader(is, "UTF-8");
+			KeywordExtractor extractor = new TFIDFKeywordExtractor(tokenizer, detector);
+			for(String  keyword: extractor.extract(paragraph, 8)){
+				log.info(keyword+" ");
+			}
+		} finally {
+			is.close();
 		}
-		System.out.println();
+		
 	}
 }

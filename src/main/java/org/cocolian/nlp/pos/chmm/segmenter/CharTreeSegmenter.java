@@ -6,18 +6,15 @@ package org.cocolian.nlp.pos.chmm.segmenter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.AbstractProcessor;
 import org.cocolian.nlp.pos.chmm.CharNode;
+import org.cocolian.nlp.pos.chmm.CharNode.State;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.Segmenter;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
-import org.cocolian.nlp.pos.chmm.CharNode.State;
 import org.cocolian.nlp.pos.chmm.corpus.CharDFACorpus;
 import org.cocolian.nlp.pos.chmm.corpus.T2SCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.CharDFAFileCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.T2SFileCorpus;
 import org.cocolian.nlp.pos.chmm.term.DefaultTermGraph;
 
 /**
@@ -90,10 +87,9 @@ public class CharTreeSegmenter extends AbstractProcessor implements Segmenter {
 	private static final Log log = LogFactory.getLog(CharTreeSegmenter.class);
 	
 
-	public CharTreeSegmenter(CorpusRepository dictionary) {
-		super(dictionary);
-		natures = dictionary.getCorpus(CharDFAFileCorpus.class);
-		t2s = dictionary.getCorpus(T2SFileCorpus.class);
+	public CharTreeSegmenter(CharDFACorpus natures,T2SCorpus  t2s ) {
+		this.natures = natures; 
+		this.t2s = t2s;
 	}
 	
 

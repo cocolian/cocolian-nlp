@@ -4,7 +4,6 @@
 package org.cocolian.nlp.pos.chmm.recognitor;
 
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.corpus.PersonTermAttribute;
@@ -17,8 +16,7 @@ import org.cocolian.nlp.pos.chmm.corpus.PersonTermAttribute;
  */
 public class NameRecognitor extends AbstractRecognitor {
 
-	public NameRecognitor(CorpusRepository dictionary){
-		super(dictionary);
+	public NameRecognitor(){
 	}
 	
 

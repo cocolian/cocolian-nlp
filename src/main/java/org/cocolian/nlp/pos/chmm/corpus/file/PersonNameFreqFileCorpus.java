@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.cocolian.nlp.Nature;
 import org.cocolian.nlp.corpus.FileCorpus;
@@ -21,13 +23,19 @@ import org.cocolian.nlp.pos.chmm.corpus.PersonTermAttribute;
  * 
  */
 public class PersonNameFreqFileCorpus extends FileCorpus implements PersonNameFreqCorpus {
-	// private Map<String, PersonTermAttribute> pnMap = null;
+	private static final String CORPUS_PATH = "data/pos/person.freq.data";
+	private static final String CORPUS_ENCODER = "UTF-8";
+
 	private CharDFACorpus charTree;
 
 	public PersonNameFreqFileCorpus(CharDFACorpus charTree) throws IOException {
-		//super(dictionary, "person.freq.data");
 		this.charTree = charTree;
-
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(CORPUS_PATH);
+		try {
+			this.load(is);
+		} finally {
+			is.close();
+		}
 	}
 
 	/**
@@ -42,11 +50,10 @@ public class PersonNameFreqFileCorpus extends FileCorpus implements PersonNameFr
 	 * @return
 	 * @throws IOException
 	 */
-	@Override
-	public void load(File nameFrequencyFile) throws IOException {
+	private void load(InputStream nameFrequencyFile) throws IOException {
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader(nameFrequencyFile));
+			reader = new BufferedReader(new InputStreamReader(nameFrequencyFile,CORPUS_ENCODER));
 			String line = reader.readLine();
 			while (line != null) {
 				String[] entry = line.split("\\:");

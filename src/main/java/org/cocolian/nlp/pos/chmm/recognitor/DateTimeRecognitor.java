@@ -24,13 +24,11 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermPath;
 import org.cocolian.nlp.pos.chmm.corpus.CharsetCorpus;
-import org.cocolian.nlp.pos.chmm.corpus.file.CharsetFileCorpus;
 
 /**
  * Jigsaw server 识别如 1987年11月1日3点50分12秒的全部或者部分片段，其中数字可以是汉字大写、阿拉伯数字。
@@ -50,9 +48,7 @@ public class DateTimeRecognitor extends AbstractRecognitor {
 	private char[] numbers;
 	private char[] qualifiers;
 
-	public DateTimeRecognitor(CorpusRepository dictionary) throws IOException {
-		super(dictionary);
-		CharsetCorpus chars = dictionary.getCorpus(CharsetFileCorpus.class);
+	public DateTimeRecognitor(CharsetCorpus chars) throws IOException {
 		this.numbers = chars.getChars("datetime.number");
 		Arrays.sort(this.numbers);
 		this.qualifiers = chars.getChars("datetime.qualifier");

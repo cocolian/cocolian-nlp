@@ -17,17 +17,16 @@
 package org.cocolian.nlp.pos.chmm.corpus.file;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.cocolian.nlp.Nature;
-import org.cocolian.nlp.corpus.FileCorpus;
 import org.cocolian.nlp.pos.chmm.BasicCharNode;
 import org.cocolian.nlp.pos.chmm.BasicTermNatures;
 import org.cocolian.nlp.pos.chmm.CharNode;
-import org.cocolian.nlp.pos.chmm.TermNatures;
 import org.cocolian.nlp.pos.chmm.CharNode.State;
+import org.cocolian.nlp.pos.chmm.TermNatures;
 import org.cocolian.nlp.pos.chmm.corpus.CharDFACorpus;
 
 /**
@@ -41,12 +40,19 @@ import org.cocolian.nlp.pos.chmm.corpus.CharDFACorpus;
  * @date 2013-2-7
  * @version 1.0.0
  */
-public class CharDFAFileCorpus extends FileCorpus implements CharDFACorpus{
+public class CharDFAFileCorpus  implements CharDFACorpus{
+	private static final String CORPUS_PATH = "data/pos/term.natures.data";
+	private static final String CORPUS_ENCODER = "UTF-8";	
 	private CharNode[] words;
 	private static final int CHAR_COUNT = 70000; //汉字常用字UTF-8的最高编码；
 	
-	public CharDFAFileCorpus() {
-		//super(folder, "term.natures.data");
+	public CharDFAFileCorpus() throws IOException {
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream(CORPUS_PATH);
+		try {
+			this.load(is);
+		} finally {
+			is.close();
+		}
 	}
 
 
@@ -55,12 +61,11 @@ public class CharDFAFileCorpus extends FileCorpus implements CharDFACorpus{
 	 * 
 	 * @throws IOException
 	 */
-	@Override
-	public void load(File DFAFile) throws IOException {
+	public void load(InputStream DFAFile) throws IOException {
 		BufferedReader reader = null;
 		this.words = new CharNode[CHAR_COUNT];
 		try {
-			reader = new BufferedReader(new FileReader(DFAFile));
+			reader = new BufferedReader(new InputStreamReader(DFAFile,CORPUS_ENCODER));
 			this.readDFAFile(reader);
 		} finally {
 			if (reader != null)

@@ -9,14 +9,12 @@ import java.util.List;
 
 import org.cocolian.nlp.Nature;
 import org.cocolian.nlp.Term;
-import org.cocolian.nlp.corpus.CorpusRepository;
 import org.cocolian.nlp.pos.chmm.POSTerm;
 import org.cocolian.nlp.pos.chmm.TermEdge;
 import org.cocolian.nlp.pos.chmm.TermGraph;
 import org.cocolian.nlp.pos.chmm.TermPath;
 import org.cocolian.nlp.pos.chmm.corpus.CompanyNameLengthCorpus;
 import org.cocolian.nlp.pos.chmm.corpus.CompanyTermAttribute;
-import org.cocolian.nlp.pos.chmm.corpus.file.CompanyNameLengthFileCorpus;
 
 /**
  * @author lixf
@@ -26,9 +24,8 @@ public class CompanyRecognitor extends AbstractRecognitor {
 	
 	private CompanyNameLengthCorpus lengthFreq ;
 	
-	public CompanyRecognitor(CorpusRepository dictionary) throws IOException {
-		super(dictionary);
-		this.lengthFreq = dictionary.getCorpus(CompanyNameLengthFileCorpus.class);
+	public CompanyRecognitor(CompanyNameLengthCorpus lengthFreq) throws IOException {
+		this.lengthFreq = lengthFreq;
 	}
 	
 	@Override
